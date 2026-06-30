@@ -1,0 +1,92 @@
+#landing-page {
+
+    width: 100%;
+    max-width: 1700px;
+
+    margin: 0 auto;
+
+    padding: 3rem 2rem 6rem;
+
+}
+
+#landing-hero {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 2rem;
+
+    margin-bottom: 5rem;
+
+}
+
+#hero-header {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: .75rem;
+
+    text-align: center;
+
+}
+
+#hero-featured {
+
+    letter-spacing: .4rem;
+
+    text-transform: uppercase;
+
+    font-size: .85rem;
+
+    opacity: .7;
+
+}
+
+#hero-title {
+
+    font-size: clamp(2.5rem,5vw,4.5rem);
+
+    font-weight: 300;
+
+}
+
+#hero-subtitle {
+
+    max-width: 700px;
+
+    opacity: .8;
+
+    line-height: 1.6;
+
+}
+
+#rotunda-container {
+
+    width: 100%;
+
+    min-height: 520px;
+
+}
+
+#search-container {
+
+    width: min(700px,100%);
+
+}
+
+#landing-blocks {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5rem;
+
+}
