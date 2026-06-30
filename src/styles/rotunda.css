@@ -1,45 +1,94 @@
+
 .rotunda-track{
 
     display:flex;
 
-    justify-content:center;
+    flex-direction:row;
 
     align-items:flex-end;
 
-    gap:48px;
+    gap:28px;
+
+    width:max-content;
 
     height:100%;
+
+    padding:40px 120px;
+
 }
 
+
+
+.landing-rotunda{
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    scrollbar-width:none;
+
+    scroll-behavior:smooth;
+
+}
+
+
+
+.landing-rotunda::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+
 .rotunda-card{
+
+    flex:0 0 auto;
 
     display:flex;
 
     flex-direction:column;
 
     align-items:center;
+
 }
+
+
 
 .rotunda-cover{
 
-    width:210px;
+    width:140px;
 
-    height:310px;
+    height:auto;
 
-    object-fit:cover;
+    border-radius:10px;
 
-    border-radius:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,.45);
 
-    box-shadow:0 20px 40px rgba(0,0,0,.45);
+    transition:.2s;
+
 }
+
+
+
+.rotunda-cover:hover{
+
+    transform:translateY(-8px) scale(1.04);
+
+}
+
+
 
 .rotunda-title{
 
-    margin-top:18px;
+    margin-top:12px;
 
-    font-size:1.3rem;
+    color:white;
 
     font-weight:700;
 
-    color:white;
+    text-align:center;
+
+    max-width:140px;
+
 }

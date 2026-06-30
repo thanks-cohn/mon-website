@@ -1,4 +1,5 @@
 import { Storage } from "../storage/storage.js";
+import "../styles/rotunda.css";
 
 const ROTUNDA_FILE = "/src/data/rotunda.json";
 const STORAGE_FILE = "/src/data/storage.json";
@@ -28,52 +29,98 @@ export class Rotunda {
         const environment = storage.active;
         const sources = storage[environment].sources;
 
-        const works = rotunda.works.slice(0, 3);
+        const works = rotunda.works;
 
         const cards = [];
 
         for (const work of works) {
 
-            //--------------------------------------------------
-            // item.json
-            //--------------------------------------------------
+            try {
 
-            const manifestUrl = Storage.manifest(
+                //--------------------------------------------------
+                // Ignore malformed works.
+                //--------------------------------------------------
 
-                work.source,
-                work.slug,
-                work.chapters[0]
+                if (!work.chapters?.length) {
 
-            );
+                    console.warn(
+                        `Rotunda: skipping "${work.slug}" (no chapters).`
+                    );
 
-            const manifest = await fetch(manifestUrl, {
+                    continue;
 
-                cache: "no-store"
+                }
 
-            }).then(r => r.json());
+                //--------------------------------------------------
+                // item.json
+                //--------------------------------------------------
 
-            //--------------------------------------------------
-            // Build first image.
-            //--------------------------------------------------
+                const manifestUrl = Storage.manifest(
 
-            const filename =
-            `${String(1).padStart(
-                manifest.padding,
-                "0"
-            )}.${manifest.extension}`;
+                    work.source,
+                    work.slug,
+                    work.chapters[0]
 
-            const image =
-            `${manifest.base_url}/${filename}`;
+                );
 
-            cards.push({
+                const response = await fetch(manifestUrl, {
 
-                title: work.display,
+                    cache: "no-store"
 
-                image
+                });
 
-            });
+                if (!response.ok) {
+
+                    console.warn(
+                        `Rotunda: skipping "${work.slug}" (${response.status}).`
+                    );
+
+                    continue;
+
+                }
+
+                const manifest = await response.json();
+
+                //--------------------------------------------------
+                // Build first image.
+                //--------------------------------------------------
+
+                const filename =
+                    `${String(1).padStart(
+                        manifest.padding,
+                        "0"
+                    )}.${manifest.extension}`;
+
+                const image =
+                    `${manifest.base_url}/${filename}`;
+
+                cards.push({
+
+                    title: work.display,
+
+                    image
+
+                });
+
+            }
+
+            catch (error) {
+
+                console.warn(
+
+                    `Rotunda: failed to load "${work.slug}".`,
+
+                    error
+
+                );
+
+            }
 
         }
+
+        console.log(
+            `Rotunda loaded ${cards.length} works.`
+        );
 
         container.innerHTML = `
 
